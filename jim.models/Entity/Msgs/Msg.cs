@@ -11,11 +11,11 @@ namespace jim.models.Entity.Msgs
 
         public string Body { get; private set; }
 
-      
+
         public string To { get; private set; }
-      
-        public MsgType Type { get;  private set; }
-        private Msg():base()
+
+        public MsgType Type { get; private set; }
+        private Msg() : base()
         {
             Type = MsgType.BroadCast;
             To = String.Empty;
@@ -44,15 +44,15 @@ namespace jim.models.Entity.Msgs
         public override void Validate()
         {
             base.Validate();
-            if(Type == MsgType.ToUser)
+            if (Type == MsgType.ToUser)
             {
-                if(String.IsNullOrWhiteSpace(To))
+                if (String.IsNullOrWhiteSpace(To))
                 {
                     var msg = Validation.ThePropertyIsNullOrEmpty(nameof(To), this.NameOfEntity);
                     throw new ValidationCustomException(this.GetType(), nameof(To), msg);
                 }
             }
-           
+
 
             if (String.IsNullOrWhiteSpace(Body))
             {

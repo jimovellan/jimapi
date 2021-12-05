@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace jim.common.Errors
 {
@@ -13,16 +11,16 @@ namespace jim.common.Errors
         /// <returns>string message error</returns>
         public static string TheIdentifierIsEmpty(string entityName)
         {
-            return String.Format(Languages.Error.ResourceManager.GetString("EMPTY_IDENTIFIER"),entityName);
+            return String.Format(Languages.Error.ResourceManager.GetString("EMPTY_IDENTIFIER"), entityName);
         }
 
         public static string ThePropertyIsNullOrEmpty(string propertyName, string entityName)
         {
-           
+
             return String.Format(Languages.Error.ResourceManager.GetString("PROPERTY_NULL_OR_EMPTY"), propertyName, entityName);
         }
 
 
-        
+
     }
 }

@@ -22,14 +22,14 @@ namespace jim.api.Controllers
         private readonly ILogger _log;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, 
+        public UserController(IUserService userService,
                               ILogger<UserController> log,
                               IMapper mapper)
         {
             _userService = userService;
             _log = log;
             _mapper = mapper;
-            
+
         }
 
         // GET: api/<ValuesController>
@@ -39,7 +39,7 @@ namespace jim.api.Controllers
             IList<UserDto> usersDto = new List<UserDto>();
             try
             {
-          
+
                 _log.LogTrace("Obteniendo todos los usuarios");
                 var users = await _userService.GetAllUsersAsync();
                 if (users != null)
@@ -54,8 +54,8 @@ namespace jim.api.Controllers
                 _log.LogError(ex, msg);
                 return CustomResponse.Fail<IList<UserDto>>(msg);
 
-               
-            }   
+
+            }
 
         }
 
@@ -63,14 +63,14 @@ namespace jim.api.Controllers
         [HttpGet("{id}")]
         public async Task<CustomResponse<User>> Get(string id)
         {
-           
+
             try
             {
                 _log.LogTrace("Obteniendo usuario por id {0}", id);
                 var user = await _userService.GetUserAsync(id);
                 return CustomResponse.Ok(user);
             }
-            catch(CustomException ex)
+            catch (CustomException ex)
             {
                 _log.LogError(ex, ex.Message);
                 return CustomResponse.Fail<User>(ex.Message);
@@ -85,9 +85,9 @@ namespace jim.api.Controllers
 
             }
 
-            
+
         }
 
-        
+
     }
 }

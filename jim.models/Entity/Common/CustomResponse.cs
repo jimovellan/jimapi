@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace jim.models.Entity.Common
-{   
+{
     /// <summary>
     /// This class is used to Response by all controllers,
     /// contains a List of errors about the executed operation,
@@ -20,10 +18,10 @@ namespace jim.models.Entity.Common
             Errors = new List<string>();
             Success = true;
         }
-        
+
         public void AddError(string error)
         {
-            if(Errors == null)
+            if (Errors == null)
             {
                 Errors = new List<string>();
             }
@@ -79,17 +77,17 @@ namespace jim.models.Entity.Common
     }
 
 
-    public class CustomResponse<T>:CustomResponse 
+    public class CustomResponse<T> : CustomResponse
     {
         public T Value { get; private set; }
 
         internal CustomResponse(T entity) : base()
         {
             Value = entity;
-            
+
         }
 
-        internal CustomResponse(IList<string> errors):base()
+        internal CustomResponse(IList<string> errors) : base()
         {
             AddError(errors);
         }

@@ -9,13 +9,13 @@ namespace jim.api.services.inter
         /// <summary>
         /// Get all conected users
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of connedted users, empty list if no exits</returns>
         Task<IList<User>> GetAllUsersAsync();
 
         /// <summary>
-        /// Get a user 
+        /// Get a user by Identifier 
         /// </summary>
-        /// <returns>NotFoundCustomException<T> if the user not foud</returns>
+        /// <returns>Returns finded user null if not found</returns>
         Task<User> GetUserAsync(string userId);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace jim.api.services.inter
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task QuitUserToHubAsync(string userId);
+        Task DeleteUserAsync(string userId);
 
     }
 }

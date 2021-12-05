@@ -1,16 +1,11 @@
 ﻿using jim.common.Exceptions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace jim.models.Entity.Common
 {
     public abstract class GenericEntity
     {
-        public string Id { get;  set; }
+        public string Id { get; set; }
 
         protected GenericEntity()
         {
@@ -35,6 +30,24 @@ namespace jim.models.Entity.Common
                 throw new ValidationCustomException(this.GetType(), nameof(Id), msg);
             }
         }
-    
+
+
+        public override bool Equals(object obj)
+        {
+
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            if (!((GenericEntity)obj).Id.Equals(Id))
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
     }
 }

@@ -22,7 +22,7 @@ namespace jim.api.Config
             services.AddTransient<IMessageService, MessageService>();
 
             services.AddSingleton<MessageHub>();
-             
+
             services.AddTransient<INotificationService, MessageHub>();
 
             //Automate register all profiles files

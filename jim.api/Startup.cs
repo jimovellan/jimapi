@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.Extensions.Logging;
 
 namespace jim.api
 {
@@ -41,23 +41,29 @@ namespace jim.api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foo API V1");
             });
 
-            app.UseExceptionHandler(c => c.Run(async context =>
+            //control all exceptions not captured
+            app.UseExceptionHandler(builder =>
             {
+                builder.Run(
+                    async context =>
+                    {
+                        var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
+                        var message = jim.common.Errors.Common.GenericError();
+                        var response = CustomResponse.Fail(message);
+                        context.Response.ContentType = "application/json";
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(response));
+                        var log = builder.ApplicationServices.GetService<ILogger>();
+                        log.LogError(exception, message);
 
-
-                var exception = context.Features
-                    .Get<IExceptionHandlerPathFeature>()
-                    .Error;
-                var message = jim.common.Errors.Common.GenericError();
-                var response = CustomResponse.Fail(message);
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(response));
-            }));
+                    });
+            });
+           
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //Not Aply 
+            //app.UseAuthorization();
 
             app.UseEndpoints(Config.EndPoints.Config);
         }

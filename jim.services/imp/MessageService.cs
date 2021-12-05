@@ -3,12 +3,10 @@ using jim.api.services.inter;
 using jim.api.Services.inter;
 using jim.common.Exceptions;
 using jim.models.Dto.Msg;
+using jim.models.Entity.Common;
 using jim.models.Entity.Msgs;
 using jim.models.Entity.Users;
 using jim.services.inter;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace jim.services.imp
@@ -19,7 +17,7 @@ namespace jim.services.imp
         private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
 
-        public MessageService(IUserService userService, 
+        public MessageService(IUserService userService,
                               INotificationService notificationService,
                               IMapper mapper)
         {
@@ -27,7 +25,7 @@ namespace jim.services.imp
             _notificationService = notificationService;
             _mapper = mapper;
         }
-        public async Task AddMessageAsync(Msg msg)
+        public async Task<CustomResponse> AddMessageAsync(Msg msg)
         {
 
             switch (msg.Type)
@@ -38,18 +36,20 @@ namespace jim.services.imp
                 case models.Msgs.MsgType.BroadCast:
                     SendMessageBroadCast(msg);
                     break;
-                
+
             }
+
+            return CustomResponse.Ok();
         }
 
         private void SendMessageToUser(Msg msg)
         {
             var user = _userService.GetUserAsync(msg.To).Result;
-            
-           if(user == null)
-           {
-             throw new CustomNotFoundException(typeof(User), msg.To);
-           }
+
+            if (user == null)
+            {
+                throw new CustomNotFoundException(typeof(User), msg.To);
+            }
 
             //persist if required in future
 

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jim.api", "jim.api\jim.api.csproj", "{C081940F-2629-4212-949B-288B50FDAC01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jim.api", "jim.api\jim.api.csproj", "{C081940F-2629-4212-949B-288B50FDAC01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jim.models", "jim.models\jim.models.csproj", "{AD182C29-A677-45AF-8D72-6412A5ADBE6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jim.models", "jim.models\jim.models.csproj", "{AD182C29-A677-45AF-8D72-6412A5ADBE6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jim.services", "jim.services\jim.services.csproj", "{D0C63E08-B442-44C5-B04D-9B930A22B3E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jim.services", "jim.services\jim.services.csproj", "{D0C63E08-B442-44C5-B04D-9B930A22B3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jim.common", "jim.common\jim.common.csproj", "{8C5ADEA8-5CB9-4907-945D-A6CAC961373E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jim.common", "jim.common\jim.common.csproj", "{8C5ADEA8-5CB9-4907-945D-A6CAC961373E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jim.client", "Jim.Client\Jim.client.csproj", "{1E0F9FB6-8F60-4774-AE07-51033CDC6EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jim.client", "Jim.Client\Jim.client.csproj", "{1E0F9FB6-8F60-4774-AE07-51033CDC6EC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jim.test", "jim.test\jim.test.csproj", "{8196B61B-8FDD-45D2-87FB-21387BC50806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1E0F9FB6-8F60-4774-AE07-51033CDC6EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E0F9FB6-8F60-4774-AE07-51033CDC6EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E0F9FB6-8F60-4774-AE07-51033CDC6EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8196B61B-8FDD-45D2-87FB-21387BC50806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8196B61B-8FDD-45D2-87FB-21387BC50806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8196B61B-8FDD-45D2-87FB-21387BC50806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8196B61B-8FDD-45D2-87FB-21387BC50806}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

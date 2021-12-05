@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace jim.models.Dto.Msg
+﻿namespace jim.models.Dto.Msg
 {
     public class CreateMsgDto
     {

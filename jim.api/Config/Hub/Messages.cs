@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace jim.api.Config.Hub
+﻿namespace jim.api.Config.Hub
 {
     public static class Messages
     {

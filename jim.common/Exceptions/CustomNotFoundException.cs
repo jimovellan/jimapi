@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace jim.common.Exceptions
 {
-    public class CustomNotFoundException:CustomException 
+    public class CustomNotFoundException : CustomException
     {
         public string EntityName { get; private set; }
         public Type EntityType { get; private set; }
@@ -14,7 +12,7 @@ namespace jim.common.Exceptions
         /// </summary>
         /// <param name="type">Type of entity not found</param>
         /// <param name="id">findend identifier</param>
-        public CustomNotFoundException(Type type,string id):base(Errors.Common.NotFoundEntityWithId(type.Name, id))
+        public CustomNotFoundException(Type type, string id) : base(Errors.Common.NotFoundEntityWithId(type.Name, id))
         {
             EntityName = nameof(type);
             EntityType = type;
