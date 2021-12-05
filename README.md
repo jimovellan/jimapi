@@ -2,9 +2,9 @@
 
 <h2>¿Que hace el proyecto?</h2>
 <p>
-publicación de mensajes a clientes previamente subscritos.
+Publicación de mensajes a clientes previamente subscritos.
 <p>
-<h2>Tecnologias usadas<h2>
+<h2>Tecnologias usadas</h2>
 <ul>
 <li> VS2019</li>
 <li> .net core 3.1</li>
@@ -17,13 +17,13 @@ publicación de mensajes a clientes previamente subscritos.
 
 <h2>Estructura del proyecto</h2>
 <p>
-<b>jim.test<b>
+<b>jim.test</b>
 </p>
     <ul>
     <li>
     - Test unitarios
     </li>
-    <ul>
+    </ul>
 <p>
 <b>jim.common </b>
 </p>
@@ -36,6 +36,9 @@ publicación de mensajes a clientes previamente subscritos.
     </li>
     <li>
     - Errores para devolver a usuario
+    </li>
+    <li>
+     - Todo lo necesario para uso de cualquier proyecto, extensiones ...
     </li>
     
 </ul>
@@ -51,7 +54,7 @@ jim.models
 <li>
     - dtos
 </li>
-<ul>
+</ul>
 <p>
 <b>
 jim.services 
@@ -64,7 +67,7 @@ jim.services
     <li>
     Servicios comunes a toda la aplicación
     </li>
-    </ul>
+</ul>
 <p>
 <b>
 jim.api
@@ -78,11 +81,11 @@ jim.api
 <p>
 <b>
 jim.client
-<b>
+</b>
 </p>
 <ul>
-<li>
-    - proyecto de consola que se suscribe a los mensajes.
+    <li>
+    proyecto de consola que se suscribe a los mensajes.
     </li>
 </ul>
 
@@ -91,55 +94,99 @@ Puesta En Marcha
 </h2>
 <p>
     Al compilar los proyectos nugget debería poder resolver todos los paquetes necesarios.
-    El proyecto se compone de dos partes:
-<p>
-<p>
-<b>
-jim.api:
-</b>
+    El proyecto se compone de dos partes, jim.api y jim.client ambas deberemos compilarlas estableciendo cada uno como proyecto de inicio:
+</p>
+
+<h3>
+1) (PARTE SERVIDORA, REST API) jim.api, Configuración y uso:
+</h3>
+
 <p> 
-                    parte servidora, rest Api y donde se pueden subscribir los clientes para recibir los mensajes.
-                    - Establecer como proyecto de inicio compilar y desplegar en el IIS.
-                    - No es necesario en principio tocar nada de configuración.
-                    - se puede utilizar la ruta /Swagger para acceder a la documentación de la api y hacer desde alli las
-                      pruebas a los EndPoint o Usar PostMan
-</p> 
+                    parte servidora, rest Api y donde se pueden subscribir los clientes para recibir los mensajes que se publican.
+</p>
+<ul>
+        <li> Establecer como proyecto de inicio compilar y desplegar en el IIS.</li>
+        <li>No es necesario en principio tocar nada de configuración.</li>
+        <li>se puede utilizar la ruta /Swagger para acceder a la documentación de la api y hacer desde alli las
+                        pruebas a los EndPoint o Usar PostMan.</li>
+               
+  </ul>
+<h3> EndPoints </h3>
+<blockquote>
+<h4>USUARIOS END POINT</h4>
+<b>GET</b>
+
+<p>/User</p>
+<p>Devuelve todos los usuarios conectados</p>
+<b>GET</b>
+<p>/User/<b>{IdUsuario}</b></p>
+<p>Devuelve información del usuario buscado</p>
+</blockquote>
+
+<blockquote>
+<h4>MENSAJES END POINT</h4>
+<b>POST</b>
+<p>Envio de un mensaje a todos los usuarios</p>
+<p>/Msg<p>
+<pre>
+                            {
+                                "body":"texto del mensaje"
+                            }
+                    
+                    
                   
-                    EndPoints:
-                    
-                    - Obtener todos los usuarios conectados
-                    Get /User: devuelve todos los usuarios conectados
-                    
-                    - Obtener info de un usuario concreto que se encuentre conectado
-                    Get    /User/{IdUsuario} Devueve la info de un usuario
-                    
-                    
-                    envia un mensaje a todos los usuarios subsritos al canal general
-                    Post /Msg
+            
+</pre>
+<b>PUT</b>
+<p>Envio de un mensaje a un usuario determinado</p>
+<p>/Msg/<b>{IdUsuario}</b><p>
+<pre>
                             {
                                 "body":"texto del mensaje"
                             }
                     
                     
-                    - Enviar un mensaje a un usuario concreto
-                    Put /Msg/{IdUsuario}
-                            {
-                                "body":"texto del mensaje"
-                            }
-                    
-        2) jim.client:
+                  
+            
+  </pre>  
+</blockquote> 
+<blockquote> 
+<H4>Conexion de los clientes para subscribirse</H4>
+    <p>
+        /hub/Message
+    </p>
+    <p>
+        Aqui se encuentra el punto donde se conectan mediante socket a las publicaciones
+    </p>
+</blockquote> 
+                            
+<h3>
+2) (PARTE CLIENTE, CONSOLA) jim.client, configuración y uso:
+</h3>
+<p>
+                    Proyecto de consola que se subscribe a los mensajes del servidor
+</p>
+<ul>
+                     <li><p><b>IMPORTANTE:</b> configurar la ruta donde se encuentra el proyecto servidor <b>jim.api</b> desde el fichero appsettings.json que se encuentra en el proyecto <b>jim.client</b> alli estableceremos la ruta </p></li>
+<pre>
+                                        {
+                                          "endpoints": 
+                                          {
 
-                    Proyecto de consola que se subscribe a los mensajes del servidor,
-                    - IMPORTANTE: configurar la ruta donde se encuentra el proyecto servidor jim.api
-                      desde el fichero appsettings.json alli estableceremos la ruta:
-                      http://{HostServidor}/Hub/Message
+                                            "ServerHub": "http://{HOST_SERVIDOR_JIM.API}/Hub/Message"
 
-                    - Establecer como proyecto de inicio y compilar deberia bajarse todas las dependencias solo
+                                          }
+</pre>
+    
+<li>Establecer como proyecto de inicio y compilar deberia bajarse todas las dependencias solo.</li>
 
-                    - Abrir tantas consolas como deseemos, al arrancar:
-                        1) Nos pedira un nombre de usuario (Por identificar a parte de por id a los usuarios)
-                        2) Cuando se conecte nos devolvera un mensaje de conectado al canal general.
-                        3) estaremos subscritos hasta que le demos a otra tecla para finalizar o cerremos la consola
+<li>Abrir tantas consolas como deseemos, al arrancar cada una de ellas estos serán los pasos</li>
+<ol>
+<li> Nos pedira un nombre de usuario (Por identificar a parte de por id a los usuarios)</li>
+<li>Cuando se conecte nos devolvera un mensaje de conectado al canal general.</li>
+<li>estaremos subscritos hasta que le demos a una tecla para finalizar o cerremos la consola</li>
+</ol>
+</ul>
 
 
 
