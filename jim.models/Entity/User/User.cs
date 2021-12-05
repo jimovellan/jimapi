@@ -8,12 +8,12 @@ namespace jim.models.Entity.Users
     public class User : GenericEntity
     {
 
-        public string Name { get;  private set; }
+        public string Name { get; private set; }
 
 
-        private User() : base() 
+        private User()
         {
-            
+
         }
 
         public static User Create(string name, string id)
@@ -34,8 +34,10 @@ namespace jim.models.Entity.Users
                 throw new ValidationCustomException(this.GetType(), nameof(Name), msg);
             }
 
-           
+
         }
+
+       
 
     }
 }

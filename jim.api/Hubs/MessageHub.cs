@@ -6,13 +6,11 @@ using jim.services.inter;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace jim.api.Hubs
 {
-    public class MessageHub : Hub,INotificationService
+    public class MessageHub : Hub, INotificationService
     {
         private readonly IUserService _userService;
         private readonly IHubContext<MessageHub> _context;
@@ -41,7 +39,7 @@ namespace jim.api.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-       
+
         /// <summary>
         /// Add a user to general channel, asign a username 
         /// </summary>
@@ -62,27 +60,27 @@ namespace jim.api.Hubs
             {
                 _log.LogError(ex, ex.Message);
             }
-           
-            
+
+
         }
         private async Task QuitFromUsers(string userId)
         {
-           
+
             try
             {
                 _log.LogTrace("Saliendo user {0} a canal {1}", userId, Config.Hub.Messages.GROUP_BROADCAST);
-                await _userService.QuitUserToHubAsync(userId);
+                await _userService.DeleteUserAsync(userId);
                 await _context.Groups.RemoveFromGroupAsync(Context.ConnectionId, Config.Hub.Messages.GROUP_BROADCAST);
             }
             catch (Exception ex)
             {
                 _log.LogError(ex, ex.Message);
             }
-           
+
         }
         public async Task BroadCastMessageAsync(MsgDto msg)
         {
-           
+
             try
             {
                 _log.LogTrace("Enviando mensaje {0} a todos los usuarios del canal {1}", msg.Id, Config.Hub.Messages.GROUP_BROADCAST);
@@ -97,16 +95,17 @@ namespace jim.api.Hubs
         {
             try
             {
-                
+
                 _log.LogTrace("Enviando mensaje {0} al usuario {1}", msg.Id, msg.To);
                 await _context.Clients.Client(msg.To).SendAsync(Config.Hub.Messages.RECEIVE_MESSAGES_BY_CLIENT, msg);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _log.LogError(ex, ex.Message);
             }
 
         }
 
-       
+
     }
 }

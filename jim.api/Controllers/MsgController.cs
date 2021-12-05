@@ -23,7 +23,7 @@ namespace jim.api.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public MsgController(IMessageService msgService, 
+        public MsgController(IMessageService msgService,
                              ILogger<MsgController> log,
                              IUserService userService,
                              IMapper mapper)
@@ -33,6 +33,7 @@ namespace jim.api.Controllers
             _userService = userService;
             _mapper = mapper;
         }
+
 
         // POST api/<ValuesController>
         [HttpPost]
@@ -45,7 +46,7 @@ namespace jim.api.Controllers
                 await _msgService.AddMessageAsync(msg);
                 return CustomResponse.Ok();
             }
-            catch(CustomException ex)
+            catch (CustomException ex)
             {
                 _log.LogError(ex, ex.Message);
                 return CustomResponse.Fail(ex.Message);
@@ -55,10 +56,10 @@ namespace jim.api.Controllers
                 var msgError = common.Errors.Common.GenericError();
                 _log.LogError(ex, msgError);
                 return CustomResponse.Fail(msgError);
-                
+
             }
 
-           
+
         }
 
         // PUT api/<ValuesController>/5
@@ -68,7 +69,7 @@ namespace jim.api.Controllers
             _log.LogDebug("Receiving msg to user {0}", userId);
             try
             {
-               
+
                 var msg = Msg.Create(msgDto.Body, userId);
                 await _msgService.AddMessageAsync(msg);
                 return CustomResponse.Ok();
@@ -87,6 +88,6 @@ namespace jim.api.Controllers
             }
         }
 
-        
+
     }
 }

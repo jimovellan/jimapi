@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace jim.common.Errors
 {
@@ -27,7 +25,7 @@ namespace jim.common.Errors
         /// <returns></returns>
         public static string NotFoundEntityWithId(string entityName, string id)
         {
-            return String.Format(Languages.Error.ResourceManager.GetString("NOT_FOUND_ENTITY"), entityName,id);
+            return String.Format(Languages.Error.ResourceManager.GetString("NOT_FOUND_ENTITY"), entityName, id);
         }
 
     }
