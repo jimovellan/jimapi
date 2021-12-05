@@ -169,13 +169,12 @@ Puesta En Marcha
 <ul>
                      <li><p><b>IMPORTANTE:</b> configurar la ruta donde se encuentra el proyecto servidor <b>jim.api</b> desde el fichero appsettings.json que se encuentra en el proyecto <b>jim.client</b> alli estableceremos la ruta </p></li>
 <pre>
-                                        {
-                                          "endpoints": 
-                                          {
-
-                                            "ServerHub": "http://{HOST_SERVIDOR_JIM.API}/Hub/Message"
-
-                                          }
+            {
+                "endpoints": 
+                            {
+                             "ServerHub": "http://{HOST_SERVIDOR_JIM.API}/Hub/Message"
+                            }
+            }
 </pre>
     
 <li>Establecer como proyecto de inicio y compilar deberia bajarse todas las dependencias solo.</li>
